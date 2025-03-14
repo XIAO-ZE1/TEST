@@ -1,0 +1,158 @@
+<html>
+  <!--圣杯布局-->
+  <head>
+    <title>圣杯布局</title>
+    <style type="text/css">
+      /* 页面背景绿色到蓝色渐变 */
+      body {
+        background: linear-gradient(to right, #00ff00, #0000ff);
+      }
+      /* 设置容器宽度，左右padding为200px */
+      .container {
+        padding-left: 200px;
+        padding-right: 200px;
+      }
+      .container .center {
+        float: left;
+        width: 100%;
+        background-color: #ccc;
+      }
+      .container .left {
+        float: left;
+        width: 200px;
+        margin-left: -100%;
+        background-color: #999;
+      }
+      .container .right {
+        float: left;
+        width: 200px;
+        margin-left: -200px;
+        background-color: #999;
+      }
+      /* 清除浮动 */
+      .clearfix:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      /* 响应式布局 */
+      @media (max-width: 600px) {
+        .container .left,
+        .container .right {
+          width: 100px;
+          margin-left: -100px;
+        }
+        .container .center {
+          width: 100%;
+        }
+        .container .left {
+          margin-left: 0;
+        }
+        .container .right {
+          margin-left: 0;
+        }
+        .clearfix {
+          display: block;
+        }
+        .clearfix:after {
+          content: "";
+          display: block;
+          clear: both;
+        }
+        .container {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="center">
+        <p>center</p>
+      </div>
+      <div class="left" id="left">
+        <p>left</p>
+      </div>
+      <div class="right">
+        <p>right</p>
+      </div>
+    </div>
+  </body>
+  <script>
+    //在页面left中显示当前时间，一秒钟更新一次
+    function showTime() {
+      var now = new Date();
+      var year = now.getFullYear();
+      var month = now.getMonth() + 1;
+      var date = now.getDate();
+      var day = now.getDay();
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+      var seconds = now.getSeconds();
+      var week = [
+        "星期日",
+        "星期一",
+        "星期二",
+        "星期三",
+        "星期四",
+        "星期五",
+        "星期六",
+      ];
+      var time =
+        year +
+        "年" +
+        month +
+        "月" +
+        date +
+        "日 " +
+        hours +
+        ":" +
+        minutes +
+        ":" +
+        seconds +
+        " " +
+        week[day];
+      document.getElementById("left").innerHTML = time;
+      setTimeout(showTime, 1000);
+    }
+    showTime();
+
+    //在页面left中显示当前时间，一秒钟更新一次
+    function showTime() {
+      var now = new Date();
+      var year = now.getFullYear();
+      var month = now.getMonth() + 1;
+      var date = now.getDate();
+      var day = now.getDay();
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+      var seconds = now.getSeconds();
+      var week = [
+        "星期日",
+        "星期一",
+        "星期二",
+        "星期三",
+        "星期四",
+        "星期五",
+        "星期六",
+      ];
+      var time =
+        year +
+        "年" +
+        month +
+        "月" +
+        date +
+        "日 " +
+        hours +
+        ":" +
+        minutes +
+        ":" +
+        seconds +
+        " " +
+        week[day];
+      document.getElementById("left").innerHTML = time;
+      setTimeout(showTime, 1000);
+    }
+  </script>
+</html>

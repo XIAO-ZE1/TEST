@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轮播图</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .slider {
+            width: 560px;
+            height: 400px;
+            overflow: hidden;
+            /* 隐藏超出部分 */
+        }
+
+        .slider-wrapper {
+            width: 100%;
+            height: 320px;
+        }
+
+        .slider-wrapper img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .slider-footer {
+            height: 80px;
+            background-color: rgb(100, 67, 68);
+            padding: 12px 12px 0 12px;
+            position: relative;
+        }
+
+        .slider-footer .toggle {
+            position: absolute;
+            right: 0;
+            top: 12px;
+            display: flex;
+        }
+
+        .slider-footer .toggle button {
+            margin-right: 12px;
+            width: 28px;
+            height: 28px;
+            appearance: none;
+            border: none;
+            background: rgba(255, 255, 255, .1);
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .slider-footer .toggle button:hover {
+            background: rgba(255, 255, 255, .2);
+        }
+
+        .slider-footer p {
+            margin: 0;
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .slider-indicator {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .slider-indicator li {
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            margin: 4px;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: .4;
+        }
+
+        .slider-indicator li.active {
+            width: 12px;
+            height: 12px;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider">
+        <div class="slider-wrapper">
+            <img src="https://www.baidu.com/img/bd_logo1.png" alt="">
+        </div>
+        <div class="slider-footer">
+            <p>test</p>
+            <ul class="slider-indicator">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <div class="toggle">
+                <button class="prev">
+                    &lt;
+                </button>
+                <button class="next">
+                    &gt;
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const sliderData = [
+            { url: 'https://www.baidu.com/img/bd_logo1.png', title: '百度1', color: 'rgb(255,0,0)' },
+            { url: 'https://www.baidu.com/img/bd_logo1.png', title: '百度2', color: 'rgb(0,255,0)' },
+            { url: 'https://www.baidu.com/img/bd_logo1.png', title: '百度3', color: 'rgb(0,0,255)' },
+            { url: 'https://www.baidu.com/img/bd_logo1.png', title: '百度4', color: 'rgb(255,255,0)' },
+            { url: 'https://www.baidu.com/img/bd_logo1.png', title: '百度5', color: 'rgb(255,0,255)' },
+            { url: 'https://www.baidu.com/img/bd_logo1.png', title: '百度6', color: 'rgb(0,255,255)' },
+        ]
+        //初始随机显示
+        const random = parseInt(Math.random() * sliderData.length)
+        const img = document.querySelector('.slider-wrapper img')
+        img.src = sliderData[random].url
+        const p = document.querySelector('.slider-footer p')
+        p.innerHTML = sliderData[random].title
+        const footer = document.querySelector('.slider-footer')
+        footer.style.backgroundColor = sliderData[random].color
+
+        const li = document.querySelector(`.slider-indicator li:nth-child(${random + 1})`)
+        li.classList.add('active')
+
+        function toggle() {
+            img.src = sliderData[i].url
+            p.innerHTML = sliderData[i].title
+            footer.style.backgroundColor = sliderData[i].color
+            document.querySelector('.slider-indicator li.active').classList.remove('active')
+            document.querySelector(`.slider-indicator li:nth-child(${i + 1})`).classList.add('active')
+        }
+
+        let i = random
+        //事件监听
+        const prev = document.querySelector('.prev')
+        const next = document.querySelector('.next')
+        prev.addEventListener('click', function () {
+            i--
+            if (i < 0) {
+                i = sliderData.length - 1
+            }
+            toggle()
+        })
+        next.addEventListener('click', function () {
+            i++
+            if (i > sliderData.length - 1) {
+                i = 0
+            }
+            toggle()
+        })
+
+        const indicators = document.querySelectorAll('.slider-indicator li')
+        indicators.forEach(function (indicator, index) {
+            indicator.addEventListener('mouseenter', function () {
+                i = index
+                toggle()
+            })
+        })
+
+        //定时器-自动轮播
+        // setInterval(function () {
+        //     i++
+        //     if (i > sliderData.length - 1) {
+        //         i = 0
+        //     }
+        //     toggle()
+        // }, 3000)
+        let timeId = setInterval(function () {
+            next.click()
+        }, 1000)
+        const slider = document.querySelector('.slider')
+        slider.addEventListener('mouseenter', function () {
+            clearInterval(timeId)
+        })
+        slider.addEventListener('mouseleave', function () {
+            // clearInterval(timeId)
+            timeId = setInterval(function () {
+                next.click()
+            }, 1000)
+        })
+    </script>
+</body>
+
+</html>
