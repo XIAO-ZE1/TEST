@@ -33,10 +33,10 @@ let data = [
     {
         src: '#',
         title: '前端开发工程师',
-        num:590
+        num: 590
     }
 ]
-for (let i = 0; i < data.length; i++){
+for (let i = 0; i < data.length; i++) {
     document.write(data[i].src)
     document.write(data[i].title)
     document.write(data[i].num)
